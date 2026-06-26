@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,20 +29,18 @@ import com.rahulshettyacademy.service.LibraryService;
 
 
 @RestController
+@SuppressWarnings("null")
 public class LibraryController {
 
-	@Autowired
-	LibraryRepository repository;
-	
-	@Autowired
-	ProductsPrices productPrices;
-	
-	@Autowired
-	LibraryService libraryService;
-	@Autowired
-	Greeting greeting;
-//	@Autowired
-//	SpecificProduct specificProduct;
+	private final LibraryRepository repository;
+	private final ProductsPrices productPrices;
+	private final LibraryService libraryService;
+
+	public LibraryController(LibraryRepository repository, ProductsPrices productPrices, LibraryService libraryService) {
+		this.repository = repository;
+		this.productPrices = productPrices;
+		this.libraryService = libraryService;
+	}
 	
 
 	String baseUrl ="http://localhost:8181";
@@ -50,7 +48,7 @@ public class LibraryController {
 	private static final Logger logger=  LoggerFactory.getLogger(LibraryController.class);
 	
 	@PostMapping("/addBook")
-	public ResponseEntity addBookImplementation(@RequestBody Library library)
+	public ResponseEntity<AddResponse> addBookImplementation(@RequestBody Library library)
 	{
 		String id =libraryService.buildId(library.getIsbn(),library.getAisle());//dependenyMock
 		AddResponse ad =new AddResponse();

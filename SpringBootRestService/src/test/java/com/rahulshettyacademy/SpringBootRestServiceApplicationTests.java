@@ -39,7 +39,7 @@ import com.rahulshettyacademy.service.LibraryService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
+@SuppressWarnings("null")
 class SpringBootRestServiceApplicationTests {
 
 	@Autowired
@@ -61,7 +61,7 @@ class SpringBootRestServiceApplicationTests {
 	@Test
 	public void checkBuildIDLogic()
 	{
-		LibraryService lib =new LibraryService();
+		LibraryService lib =new LibraryService(repository);
 		String id = lib.buildId("ZMAN", 24);
 		assertEquals(id,"OLDZMAN24");
 		String id1 = lib.buildId("MAN", 24);
@@ -78,10 +78,11 @@ class SpringBootRestServiceApplicationTests {
 		when(libraryService.buildId(lib.getIsbn(),lib.getAisle())).thenReturn(lib.getId());
 		when(libraryService.checkBookAlreadyExist(lib.getId())).thenReturn(false);
 		when(repository.save(any())).thenReturn(lib);
-		ResponseEntity response	=con.addBookImplementation(buildLibrary());//step
+		ResponseEntity<AddResponse> response	=con.addBookImplementation(buildLibrary());//step
 		System.out.println(response.getStatusCode());
 		assertEquals(response.getStatusCode(),HttpStatus.CREATED);
-		AddResponse ad= (AddResponse) response.getBody();
+		AddResponse ad= response.getBody();
+		org.junit.jupiter.api.Assertions.assertNotNull(ad);
 		ad.getId();
 		assertEquals(lib.getId(),ad.getId());
 		assertEquals("Success Book is Added",ad.getMsg());

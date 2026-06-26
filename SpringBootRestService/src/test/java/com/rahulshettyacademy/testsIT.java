@@ -1,5 +1,6 @@
 package com.rahulshettyacademy;
 
+import java.util.List;
 import org.json.JSONException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -57,7 +58,9 @@ public class testsIT {
 		HttpEntity<Library> request = new HttpEntity<Library>(buildLibrary(),headers);
 		ResponseEntity<String>	response =	restTemplate.postForEntity("http://localhost:8080/addBook", request, String.class);
 		Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
-		Assertions.assertEquals(buildLibrary().getId(),response.getHeaders().get("unique").get(0));
+		List<String> uniqueHeaders = response.getHeaders().get("unique");
+		Assertions.assertNotNull(uniqueHeaders);
+		Assertions.assertEquals(buildLibrary().getId(), uniqueHeaders.get(0));
 		
 		
 		

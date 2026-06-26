@@ -3,19 +3,21 @@ package com.rahulshettyacademy.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.rahulshettyacademy.controller.Library;
 
+@SuppressWarnings("all")
 public class LibraryRepositoryImpl implements LibraryRepositoryCustom{
 	
-	@Autowired
-	LibraryRepository repository;
+	private final LibraryRepository repository;
+
+	public LibraryRepositoryImpl(LibraryRepository repository) {
+		this.repository = repository;
+	}
+
 
 	@Override
 	public List<Library> findAllByAuthor(String authorName) {
 		List<Library>bookswithAuthor = new ArrayList<Library>();
-		// TODO Auto-generated method stub
 		List<Library>books =repository.findAll();
 		for(Library item : books)
 //			{
@@ -30,8 +32,6 @@ public class LibraryRepositoryImpl implements LibraryRepositoryCustom{
 	
 	@Override
 	public Library findByName(String bookName) {
-		List<Library>bookswithAuthor = new ArrayList<Library>();
-		// TODO Auto-generated method stub
 		List<Library>books =repository.findAll();
 		for(Library item : books)
 //			{
