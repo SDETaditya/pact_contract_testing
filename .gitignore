@@ -1,0 +1,47 @@
+# --- Java / Maven ---
+/target/
+/.mvn/
+
+# --- Maven wrapper ---
+!.mvn/wrapper/maven-wrapper.jar
+!.mvn/wrapper/maven-wrapper.properties
+
+# --- IntelliJ IDEA ---
+/.idea/
+*.iml
+
+# --- Eclipse ---
+.classpath
+.project
+.settings/
+
+# --- VS Code ---
+.vscode/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+log/
+
+# --- Pact / Contract testing (optional) ---
+# Pact contract files sometimes land under pact/ or build directories depending on setup.
+/pacts/
+/pact/
+
+# --- Secrets / environment config (common patterns) ---
+# Ignore dotenv files
+.env
+.env.*
+
+# Ignore local overrides & environment-specific Spring config
+application*.properties
+application*.yml
+application*.yaml
+
+# (Optional) re-include example/template files if you have them
+# !application*.example.properties
+# !application*.template.properties
+
